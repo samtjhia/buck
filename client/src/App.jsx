@@ -80,6 +80,21 @@ export default function App() {
             className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           />
         </label>
+
+        <label className="block">
+          <span className="text-gray-700">Hunger Level</span>
+          <select
+            name="hunger"
+            value={form.hunger}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="">Select hunger level</option>
+            <option value="snack">Snackish</option>
+            <option value="hungry">Hungry</option>
+            <option value="starving">Starving</option>
+          </select>
+        </label>
       </form>
     </div>
   );
