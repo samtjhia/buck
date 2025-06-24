@@ -95,6 +95,25 @@ export default function App() {
             <option value="starving">Starving</option>
           </select>
         </label>
+
+        <label className="block">
+          <span className="text-gray-700">Other Info</span>
+          <textarea
+            name="other"
+            value={form.other}
+            onChange={handleChange}
+            placeholder="Anything else you want to add..."
+            rows={3}
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </label>
+
+        <button
+          type="submit"
+          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+        >
+          Recommend Me
+        </button>
       </form>
     </div>
   );
