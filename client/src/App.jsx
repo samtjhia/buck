@@ -56,6 +56,30 @@ export default function App() {
             className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           />
         </label>
+
+        <label className="block">
+          <span className="text-gray-700">Mood</span>
+          <input
+            type="text"
+            name="mood"
+            value={form.mood}
+            onChange={handleChange}
+            placeholder="e.g. chill vibe, study spot, lively"
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-gray-700">Dietary Restrictions</span>
+          <input
+            type="text"
+            name="dietary"
+            value={form.dietary}
+            onChange={handleChange}
+            placeholder="e.g. vegetarian, halal, allergies"
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </label>
       </form>
     </div>
   );
