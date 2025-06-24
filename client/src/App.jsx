@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function App() {
   const [form, setForm] = useState({
     location: "",
+    time: "",
     budget: "",
     mood: "",
     dietary: "",
@@ -39,6 +40,17 @@ export default function App() {
             onChange={handleChange}
             required
             placeholder="e.g. Toronto"
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-gray-700">Time You’re Eating</span>
+          <input
+            type="datetime-local"
+            name="time"
+            value={form.time}
+            onChange={handleChange}
             className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           />
         </label>
