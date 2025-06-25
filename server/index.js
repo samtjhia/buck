@@ -19,15 +19,26 @@ app.post("/recommend", async (req, res) => {
   const { location, budget, mood, dietary, hunger, other, time } = req.body;
 
   const query = `
-    I'm a broke college student in ${location}.
-    Budget: $${budget}.
-    Mood: ${mood || "any"}.
-    Dietary: ${dietary || "none"}.
-    Hunger: ${hunger || "normal"}.
-    Extra: ${other || "none"}.
-    Time: ${time || "now"}.
-    Recommend restaurants that match.
-  `.trim();
+I'm a broke college student looking for food in ${location}.
+Here are my preferences:
+- Budget: $${budget}
+- Mood: ${mood || "any"}
+- Dietary Restrictions: ${dietary || "none"}
+- Hunger Level: ${hunger || "normal"}
+- Time: ${time || "now"}
+- Other: ${other || "none"}
+
+Please recommend a few restaurants that match these needs.
+
+Respond in clear bullet points. For each restaurant:
+- Give the name and cuisine.
+- Summarize why it fits my preferences.
+- Highlight any matching preferences.
+- If any preference isn't clearly satisfied (especially dietary restrictions), mention it and wrap that warning in **double asterisks** for emphasis.
+
+Keep the tone friendly, helpful, and concise.
+`.trim();
+
 
   try {
     const response = await axios.post(
