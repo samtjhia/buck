@@ -28,8 +28,8 @@ export default function App() {
       });
 
       const result = await response.json();
-      console.log("Backend response:", result);
-      alert("Received: " + result.message);
+      console.log("Yelp AI response:", result);
+      alert("Received recommendation data. Check console.");
     } catch (err) {
       console.error("Error sending form:", err);
     }

@@ -1,5 +1,8 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,16 +14,47 @@ app.get("/", (req, res) => {
     res.send("buck backend running");
 });
 
-//POST route
-app.post("/recommend", (req, res) => {
-    console.log("received form data:", req.body);
+// Yelp AI route
+app.post("/recommend", async (req, res) => {
+  const { location, budget, mood, dietary, hunger, other, time } = req.body;
 
-    res.json({
-        message: "backend received your request",
-        data: req.body,
-    });
+  const query = `
+    I'm a broke college student in ${location}.
+    Budget: $${budget}.
+    Mood: ${mood || "any"}.
+    Dietary: ${dietary || "none"}.
+    Hunger: ${hunger || "normal"}.
+    Extra: ${other || "none"}.
+    Time: ${time || "now"}.
+    Recommend restaurants that match.
+  `.trim();
+
+  try {
+    const response = await axios.post(
+      "https://api.yelp.com/ai/chat/v2",
+      {
+        query,
+        user_context: {
+          locale: "en_US"
+        }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.YELP_API_KEY}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    console.log("Yelp AI response:", response.data);
+    res.json(response.data);
+  } catch (err) {
+    console.error("Yelp AI error:", err.response?.data || err.message);
+    res.status(500).json({ error: "Yelp AI search failed" });
+  }
 });
 
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`BUCK server running at http://localhost:${PORT}`);
 });
