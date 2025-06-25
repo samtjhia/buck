@@ -22,7 +22,7 @@ export default function App() {
     setResults(null); // Clear old results
 
     try {
-      const response = await fetch("https://buck-70bj.onrender.com", {
+      const response = await fetch("https://buck-70bj.onrender.com/recommend", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
