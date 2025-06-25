@@ -45,10 +45,14 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
       <h1 className="text-5xl font-bold mb-6">BUCK</h1>
-      <p className="mb-2 text-center max-w-md text-gray-600">
-        <strong>Budget + Muck = BUCK.</strong><br />
-        Find affordable, AI-powered food recs for people on a budget.
+      <p className="mb-4 text-center text-gray-600 max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+        <strong className="block text-lg md:text-xl lg:text-2xl">Budget + Muck = BUCK.</strong>
+        <span className="block mt-1">
+          Find affordable, AI-powered food recommendations for people on a budget.
+        </span>
       </p>
+
+
 
       <div className="relative group mb-8">
         <span className="text-sm text-indigo-600 underline cursor-pointer">
