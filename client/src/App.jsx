@@ -45,10 +45,38 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
       <h1 className="text-5xl font-bold mb-6">BUCK</h1>
-      <p className="mb-8 text-center max-w-md text-gray-600">
-        Budget + Muck = BUCK.<br />
-        Find affordable and satisfying food for broke students.
+      <p className="mb-2 text-center max-w-md text-gray-600">
+        <strong>Budget + Muck = BUCK.</strong><br />
+        Find affordable, AI-powered food recs for people on a budget.
       </p>
+
+      <div className="relative group mb-8">
+        <span className="text-sm text-indigo-600 underline cursor-pointer">
+          What makes BUCK different?
+        </span>
+        <div className="absolute z-10 hidden group-hover:block bg-white border border-gray-300 rounded p-4 text-sm text-gray-800 shadow-xl w-80 mt-2 left-1/2 -translate-x-1/2">
+          BUCK is powered by AI! It actually reads what you write and makes sense of your vibe.
+          <br /><br />
+          Unlike regular search apps, BUCK figures out what you need based on more than just price or ratings. Whether you're:
+          <ul className="list-disc list-inside mt-2">
+            <li>Racing between classes and need something fast</li>
+            <li>Looking for a place where your whole group can sit</li>
+            <li>Trying to avoid allergens or stick to halal/vegan food</li>
+            <li>Or just craving a chill, cozy vibe for studying</li>
+          </ul>
+          ...you can just <strong>write that stuff down</strong>, and BUCK will handle it.
+          <br /><br />
+          In the <strong>“Other Info”</strong> box, you can mention things like:
+          <ul className="list-disc list-inside mt-2">
+            <li>“There are 8 of us, we need lots of seating”</li>
+            <li>“Looking for a quick bite before my 2PM class”</li>
+            <li>“Need lactose-free bubble tea”</li>
+            <li>“Asian food only. Something soupy.”</li>
+            <li>“Need food that fills me up for cheap”</li>
+          </ul>
+          <strong>The more specific or real you are, the better BUCK gets.</strong>
+        </div>
+      </div>
 
       <div className="flex flex-col md:flex-row w-full max-w-6xl gap-8">
         {/* Left Side: Form + Loading */}
@@ -60,7 +88,7 @@ export default function App() {
             {/* (All your input fields stay here as-is) */}
             {/* ... */}
             <label className="block">
-              <span className="text-gray-700">Location</span>
+              <span className="text-gray-700">Location (required)</span>
               <input
                 type="text"
                 name="location"
@@ -84,7 +112,7 @@ export default function App() {
             </label>
 
             <label className="block">
-              <span className="text-gray-700">Budget (in $)</span>
+              <span className="text-gray-700">Budget (in $) (required)</span>
               <input
                 type="number"
                 name="budget"
@@ -166,7 +194,22 @@ export default function App() {
           {results && (
             <div className="w-full">
               <h2 className="text-xl font-semibold mb-4">AI Recommendation Summary</h2>
-              <p className="mb-6 text-gray-700">{results.response.text}</p>
+              <div className="mb-6 text-gray-700 space-y-2">
+                {results.response.text
+                  .split("\n") // Split at newlines
+                  .filter((line) => line.trim() !== "")
+                  .map((line, i) => {
+                    // Bold **text** conversion
+                    const formattedLine = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+                    return (
+                      <p
+                        key={i}
+                        className="leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: formattedLine }}
+                      />
+                    );
+                  })}
+              </div>
 
               <h2 className="text-lg font-medium mb-2">Top Matches</h2>
               <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
