@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("buck backend running");
+  res.send("buck backend running");
 });
 
 // Yelp AI route
@@ -46,15 +46,38 @@ app.post("/recommend", async (req, res) => {
       }
     );
 
-    console.log("Yelp AI response:", response.data);
-    res.json(response.data);
+    const aiResult = response.data;
+    const businessIds = aiResult.entities[0]?.businesses?.map(b => b.id);
+
+    if (!businessIds?.length) {
+      return res.json({
+        response: aiResult.response,
+        entities: aiResult.entities,
+        businesses: []
+      });
+    }
+
+    const detailPromises = businessIds.map(id =>
+      axios.get(`https://api.yelp.com/v3/businesses/${id}`, {
+        headers: { Authorization: `Bearer ${process.env.YELP_API_KEY}` },
+      })
+    );
+    const details = await Promise.all(detailPromises);
+
+    res.json({
+      response: aiResult.response,
+      entities: aiResult.entities,
+      businesses: details.map(r => r.data),
+    });
+
   } catch (err) {
     console.error("Yelp AI error:", err.response?.data || err.message);
     res.status(500).json({ error: "Yelp AI search failed" });
   }
 });
 
+
 // Start the server
 app.listen(PORT, () => {
-    console.log(`BUCK server running at http://localhost:${PORT}`);
+  console.log(`BUCK server running at http://localhost:${PORT}`);
 });

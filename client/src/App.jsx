@@ -170,35 +170,33 @@ export default function App() {
 
               <h2 className="text-lg font-medium mb-2">Top Matches</h2>
               <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-                {results.entities?.[0]?.businesses?.map((biz) => (
-                  <div key={biz.id} className="p-4 border rounded shadow-sm bg-white">
-                    {console.log("Image URL for", biz.name, ":", biz.image_url)}
+                {results.businesses?.map((biz) => (
+                  <div key={biz.id} className="flex items-start gap-4 p-4 border rounded shadow-sm bg-white">
                     <img
-                      src={
-                        biz.image_url
-                          ? biz.image_url.replace("http://", "https://")
-                          : "https://via.placeholder.com/400x200?text=No+Image"
-                      }
+                      src={biz.image_url || "https://via.placeholder.com/150"}
                       alt={biz.name}
-                      className="w-full h-48 object-cover rounded mb-2"
+                      className="w-32 h-32 object-cover rounded"
                     />
 
-                    <h3 className="text-lg font-semibold">{biz.name}</h3>
-                    <p className="text-sm text-gray-600">
-                      {biz.location?.address1}, {biz.location?.city}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      ⭐ {biz.rating} · {biz.review_count} reviews
-                    </p>
-                    <a
-                      href={biz.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-indigo-600 hover:underline text-sm"
-                    >
-                      View on Yelp
-                    </a>
+                    <div className="flex flex-col justify-between">
+                      <h3 className="text-lg font-semibold">{biz.name}</h3>
+                      <p className="text-sm text-gray-600">
+                        {biz.location?.address1}, {biz.location?.city}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        ⭐ {biz.rating} · {biz.review_count} reviews
+                      </p>
+                      <a
+                        href={biz.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:underline text-sm"
+                      >
+                        View on Yelp
+                      </a>
+                    </div>
                   </div>
+
                 ))}
               </div>
             </div>
