@@ -15,10 +15,26 @@ export default function App() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Form submitted:", form);
+
+    try {
+      const response = await fetch("http://localhost:3001/recommend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const result = await response.json();
+      console.log("Backend response:", result);
+      alert("Received: " + result.message);
+    } catch (err) {
+      console.error("Error sending form:", err);
+    }
   }
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
