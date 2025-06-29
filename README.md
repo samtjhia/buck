@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/acd00aa4-a300-4727-9ffb-af1ef436494a
 
 ## Tech Stack
 
-- **Frontend**: React, JavaScript, HTML, CSS
+- **Frontend**: React, JavaScript, HTML, Tailwind CSS
 - **Backend**: Node.js, Express
 - **AI/ML Integration**: Yelp Fusion AI API
 
