@@ -69,5 +69,5 @@ npm run dev
 ## API Limits
 
 - **Free tier** allows **100 AI-powered searches per day**
-- Once exhausted, the web app will not work.
+- Once exhausted, the web app will not work (unless you upgrade).
 
